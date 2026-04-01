@@ -11,13 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('name');
-            $table->enum('type', ['income', 'expense']);
-            $table->string('color')->nullable();
-            $table->boolean('is_active')->default(true);
+            $table->foreignId('account_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
+            $table->enum('type', ['income', 'expense', 'transfer']);
+            $table->decimal('amount', 15, 2);
+            $table->string('description');
+            $table->date('transaction_date');
+            $table->string('reference_id')->nullable();
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }
