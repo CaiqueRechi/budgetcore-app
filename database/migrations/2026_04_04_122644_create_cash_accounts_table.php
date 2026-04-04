@@ -13,7 +13,15 @@ return new class extends Migration
     {
         Schema::create('cash_accounts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->string('name');
+            $table->string('type');
+            $table->text('description')->nullable();
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
+
+            $table->index(['user_id', 'is_active']);
+            $table->index(['user_id', 'type']);
         });
     }
 
