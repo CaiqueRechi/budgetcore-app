@@ -3,64 +3,98 @@
 namespace App\Http\Controllers;
 
 use App\Models\Supplier;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class SupplierController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $suppliers = $request->user()
+            ->suppliers()
+            ->latest()
+            ->paginate(10);
+
+        return view('suppliers.index', compact('suppliers'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('suppliers.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'document' => ['nullable', 'string', 'max:20'],
+            'email' => ['nullable', 'email', 'max:255'],
+            'phone' => ['nullable', 'string', 'max:20'],
+            'address' => ['nullable', 'string', 'max:255'],
+            'notes' => ['nullable', 'string'],
+            'is_active' => ['nullable', 'boolean'],
+        ]);
+
+        $request->user()->suppliers()->create([
+            ...$validated,
+            'is_active' => $request->boolean('is_active', true),
+        ]);
+
+        return redirect()
+            ->route('suppliers.index')
+            ->with('success', 'Fornecedor criado com sucesso.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Supplier $supplier)
     {
-        //
+        $this->authorizeOwner($supplier);
+
+        return view('suppliers.show', compact('supplier'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Supplier $supplier)
     {
-        //
+        $this->authorizeOwner($supplier);
+
+        return view('suppliers.edit', compact('supplier'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Supplier $supplier)
     {
-        //
+        $this->authorizeOwner($supplier);
+
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'document' => ['nullable', 'string', 'max:20'],
+            'email' => ['nullable', 'email', 'max:255'],
+            'phone' => ['nullable', 'string', 'max:20'],
+            'address' => ['nullable', 'string', 'max:255'],
+            'notes' => ['nullable', 'string'],
+            'is_active' => ['nullable', 'boolean'],
+        ]);
+
+        $supplier->update([
+            ...$validated,
+            'is_active' => $request->boolean('is_active'),
+        ]);
+
+        return redirect()
+            ->route('suppliers.index')
+            ->with('success', 'Fornecedor atualizado com sucesso.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Supplier $supplier)
     {
-        //
+        $this->authorizeOwner($supplier);
+
+        $supplier->delete();
+
+        return redirect()
+            ->route('suppliers.index')
+            ->with('success', 'Fornecedor removido com sucesso.');
+    }
+
+    private function authorizeOwner(Supplier $supplier): void
+    {
+        abort_if($supplier->user_id !== auth()->id(), 403);
     }
 }
