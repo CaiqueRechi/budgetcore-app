@@ -17,4 +17,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::resource('cash-accounts', \App\Http\Controllers\CashAccountController::class);
+    Route::resource('clients', \App\Http\Controllers\ClientController::class);
+    Route::resource('suppliers', \App\Http\Controllers\SupplierController::class);
+});
+
 require __DIR__.'/auth.php';
