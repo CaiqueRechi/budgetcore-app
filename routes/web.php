@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\CashAccountController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,9 +21,9 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::resource('cash-accounts', \App\Http\Controllers\CashAccountController::class);
-    Route::resource('clients', \App\Http\Controllers\ClientController::class);
-    Route::resource('suppliers', \App\Http\Controllers\SupplierController::class);
+    Route::resource('cash-accounts', CashAccountController::class);
+    Route::resource('clients', ClientController::class);
+    Route::resource('suppliers', SupplierController::class);
 });
 
 require __DIR__.'/auth.php';

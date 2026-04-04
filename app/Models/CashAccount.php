@@ -66,4 +66,5 @@ class CashAccount extends Model
 
         return (float) ($entries - $exits + $adjustments);
     }
+
 }
