@@ -25,8 +25,8 @@
                 <div>
                     <p class="mb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Financeiro</p>
                     <div class="space-y-1">
-                        <a href="#"
-                           class="block rounded-lg px-3 py-2 text-sm hover:bg-gray-100">
+                        <a href="{{ route('cash-movements.index') }}"
+                        class="block rounded-lg px-3 py-2 text-sm hover:bg-gray-100">
                             Movimentações
                         </a>
                         <a href="#"
