@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Payable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
@@ -81,5 +83,10 @@ class User extends Authenticatable
     public function suppliers()
     {
         return $this->hasMany(Supplier::class);
+    }
+
+    public function payables(): HasMany
+    {
+        return $this->hasMany(Payable::class);
     }
 }
