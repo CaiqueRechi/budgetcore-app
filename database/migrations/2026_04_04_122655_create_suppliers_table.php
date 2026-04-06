@@ -25,7 +25,7 @@ return new class extends Migration
 
             $table->index(['user_id', 'is_active']);
             $table->index(['user_id', 'name']);
-            $table->index(['document']);
+            $table->index(['user_id', 'document']);
         });
     }
 
