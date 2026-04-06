@@ -6,6 +6,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CashMovementController;
+use App\Http\Controllers\PayableController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,5 +34,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('clients', ClientController::class);
     Route::resource('suppliers', SupplierController::class);
 });
+
+Route::resource('payables', PayableController::class);
 
 require __DIR__.'/auth.php';

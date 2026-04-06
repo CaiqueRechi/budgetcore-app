@@ -35,7 +35,8 @@
                         <a href="{{ route('cash-movements.index') }}" class="{{ $menuClass('cash-movements.*') }}">
                             Movimentações
                         </a>
-                        <a href="#" class="{{ $menuClass('#') }}">
+                        <a href="{{ route('payables.index') }}"
+                        class="{{ $menuClass('payables.*') }}">
                             Contas a pagar
                         </a>
                         <a href="#" class="{{ $menuClass('#') }}">
