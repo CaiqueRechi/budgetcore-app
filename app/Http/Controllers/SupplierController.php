@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Supplier;
+use App\Http\Requests\StoreSupplierRequest;
+use App\Http\Requests\UpdateSupplierRequest;
 use Illuminate\Http\Request;
 
 class SupplierController extends Controller
@@ -11,7 +13,7 @@ class SupplierController extends Controller
     {
         $suppliers = $request->user()
             ->suppliers()
-            ->latest()
+            ->orderBy('name')
             ->paginate(10);
 
         return view('suppliers.index', compact('suppliers'));
@@ -22,17 +24,9 @@ class SupplierController extends Controller
         return view('suppliers.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreSupplierRequest $request)
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'document' => ['nullable', 'string', 'max:20'],
-            'email' => ['nullable', 'email', 'max:255'],
-            'phone' => ['nullable', 'string', 'max:20'],
-            'address' => ['nullable', 'string', 'max:255'],
-            'notes' => ['nullable', 'string'],
-            'is_active' => ['nullable', 'boolean'],
-        ]);
+        $validated = $request->validated();
 
         $request->user()->suppliers()->create([
             ...$validated,
@@ -58,19 +52,11 @@ class SupplierController extends Controller
         return view('suppliers.edit', compact('supplier'));
     }
 
-    public function update(Request $request, Supplier $supplier)
+    public function update(UpdateSupplierRequest $request, Supplier $supplier)
     {
         $this->authorizeOwner($supplier);
 
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'document' => ['nullable', 'string', 'max:20'],
-            'email' => ['nullable', 'email', 'max:255'],
-            'phone' => ['nullable', 'string', 'max:20'],
-            'address' => ['nullable', 'string', 'max:255'],
-            'notes' => ['nullable', 'string'],
-            'is_active' => ['nullable', 'boolean'],
-        ]);
+        $validated = $request->validated();
 
         $supplier->update([
             ...$validated,
