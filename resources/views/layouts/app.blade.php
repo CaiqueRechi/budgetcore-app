@@ -17,8 +17,15 @@
 
     <div class="min-h-screen flex">
         <aside class="hidden md:flex md:w-64 md:flex-col bg-white border-r border-gray-200">
-            <div class="px-6 py-5 border-b border-gray-200">
-                <h1 class="text-xl font-bold">BudgetCore</h1>
+            <div class="flex items-center gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 text-white font-bold shadow">
+                    B
+                </div>
+
+                <div>
+                    <p class="text-sm font-semibold">BUD</p>
+                    <p class="text-xs text-slate-500">BudgetCore</p>
+                </div>
             </div>
 
             <nav class="flex-1 px-4 py-6 space-y-6">
