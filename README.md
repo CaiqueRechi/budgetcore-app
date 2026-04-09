@@ -1,10 +1,14 @@
 # BudgetCore
 
-Sistema financeiro pessoal e escalável construído em **Laravel**, com foco em boas práticas de arquitetura, evolução incremental e potencial para open source.
+Sistema financeiro pessoal e escalável construído em **Laravel**, com foco em **arquitetura limpa, evolução incremental, modelagem de domínio financeiro e potencial real para open source/SaaS**.
+
+O projeto já está em fase funcional, com módulos financeiros consistentes e uma base sólida para crescimento em portfólio e produto.
+
+---
 
 ## 🚀 Status atual do projeto
 
-Atualmente o projeto já possui módulos funcionais para:
+Atualmente o BudgetCore já possui módulos funcionais para:
 
 * ✅ Autenticação e dashboard
 * ✅ Gestão de **clientes**
@@ -12,17 +16,22 @@ Atualmente o projeto já possui módulos funcionais para:
 * ✅ Gestão de **contas/caixas**
 * ✅ Controle de **movimentações de caixa**
 * ✅ Módulo de **contas a pagar**
+* ✅ Base inicial de **contas a receber**
+* ✅ Sidebar e navegação modular
+* ✅ Testes iniciais de features
 
 ---
 
 ## 🧱 Stack
 
 * PHP 8.3
-* Laravel
+* Laravel 12
 * Blade
 * Tailwind CSS
 * Vite
 * MySQL
+* Breeze
+* PHPUnit / Pest
 
 ---
 
@@ -38,10 +47,11 @@ CRUD completo com:
 * paginação
 * ordenação por nome
 * proteção multiusuário
+* policies implícitas por ownership
 
 ### 🏢 Fornecedores
 
-Estrutura espelhada de clientes, mantendo consistência arquitetural.
+Estrutura espelhada de clientes, mantendo consistência arquitetural e reaproveitamento de padrões.
 
 ### 💰 Contas e Caixas
 
@@ -52,17 +62,19 @@ Cadastro de contas financeiras para representar:
 * carteira
 * outras contas
 
-Preparado para integração com pagamentos e recebimentos.
+Preparado para integração com pagamentos, recebimentos e dashboards consolidados.
 
 ### 💸 Movimentações de Caixa
 
-Histórico de entradas e saídas via tabela dedicada de movimentos.
+Histórico de entradas e saídas via tabela dedicada de movimentos (`cash_movements`).
 
 Benefícios:
 
 * saldo calculável
 * histórico completo
-* base robusta para auditoria
+* trilha de auditoria
+* reconstrução de saldo
+* base robusta para relatórios
 
 ### 📉 Contas a Pagar
 
@@ -75,27 +87,49 @@ Funcionalidades:
 * valor
 * vencimento
 * observações
-* status com enum tipado
+* status extensível
 * data de pagamento
 * cálculo de vencimento dinâmico
 
+### 📈 Contas a Receber
+
+Base do domínio já preparada para:
+
+* vínculo com clientes
+* recebimento por conta
+* baixa futura
+* projeção de entradas
+
+---
+
 ## 🧠 Regras de domínio
 
-O módulo de contas a pagar utiliza enum nativo do PHP:
+O módulo financeiro segue modelagem orientada a domínio.
+
+Atualmente contas a pagar utiliza **enum nativo do PHP**, com evolução planejada para status integer extensível.
+
+Status atuais:
 
 * `Pending`
 * `Paid`
 
-Com helpers no model:
+Helpers no model:
 
 * `isPaid()`
 * `isOverdue()`
+
+Direção futura:
+
+* cancelled
+* partially_paid
+* scheduled
+* recurring
 
 ---
 
 ## 🏗️ Arquitetura aplicada
 
-O projeto segue padrões de Laravel mais profissionais:
+O projeto segue padrões profissionais de Laravel:
 
 * Form Requests para validação
 * Resource Controllers
@@ -104,6 +138,9 @@ O projeto segue padrões de Laravel mais profissionais:
 * PHP Enums
 * Models com comportamento de domínio
 * Índices compostos em tabelas críticas
+* Paginação consistente
+* ownership-safe queries
+* arquitetura preparada para Service Layer
 
 ---
 
@@ -120,6 +157,19 @@ Estrutura preparada para futura evolução para:
 * workspaces
 * contas compartilhadas
 * múltiplos usuários por organização
+* SaaS multi-tenant
+
+---
+
+## 🧪 Qualidade de software
+
+Foco atual da evolução:
+
+* aumento de cobertura de testes
+* melhoria visual para showcase
+* padronização de componentes Blade
+* branding BUD
+* preparação para open source
 
 ---
 
@@ -127,13 +177,15 @@ Estrutura preparada para futura evolução para:
 
 Próximos módulos planejados:
 
-* ⏳ Contas a receber
+* ⏳ Contas a receber completo
 * ⏳ Dashboard financeiro consolidado
 * ⏳ Relatórios por período
 * ⏳ Fluxo de caixa
 * ⏳ Categorias
+* ⏳ Metas financeiras
 * ⏳ Workspace multiusuário
 * ⏳ API pública
+* ⏳ Exportação CSV/PDF
 
 ---
 
@@ -142,9 +194,10 @@ Próximos módulos planejados:
 Além do uso pessoal, o BudgetCore está sendo desenvolvido como:
 
 * estudo profundo de Laravel
-* projeto de portfólio
+* projeto de portfólio premium
 * base escalável para open source
 * showcase de arquitetura backend
+* possível SaaS financeiro futuro
 
 ---
 
