@@ -1,6 +1,6 @@
 # BudgetCore
 
-Sistema financeiro pessoal e escalável construído em **Laravel**, com foco em **arquitetura limpa, evolução incremental, modelagem de domínio financeiro e potencial real para open source/SaaS**.
+Sistema financeiro pessoal e escalável construído em **Laravel**, com foco em **arquitetura limpa, evolução incremental, modelagem de domínio financeiro e potencial real para open source.
 
 O projeto já está em fase funcional, com módulos financeiros consistentes e uma base sólida para crescimento em portfólio e produto.
 
